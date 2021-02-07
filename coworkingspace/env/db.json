@@ -1,0 +1,20 @@
+{
+    "development": {
+        "username": "",
+        "dbName": "",
+        "password": "",
+        "uri": "mongodb://localhost:27017/test_local"
+    },
+    "test": {
+        "username": "",
+        "dbName": "",
+        "password": "",
+        "uri": "mongodb://localhost:27017/test_local"
+    },
+    "production": {
+        "username": "",
+        "dbName": "",
+        "password": "",
+        "uri": "mongodb://localhost:27017/test_local"
+    }
+}
