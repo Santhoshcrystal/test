@@ -1,0 +1,92 @@
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+</head>
+
+<body ng-app="BlankApp" ng-controller="ChipCtrl as ctrl" ng-cloak>
+    <md-chips ng-model="ctrl.selectedChips" md-autocomplete-snap md-transform-chip="ctrl.transformChip($chip)"
+        md-on-select="selectChip($chip)"  md-on-add="addChip($chip)" md-on-remove="removeChip($chip)"
+        md-require-match="true">
+        <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText"
+            md-items="item in ctrl.chipSearch(ctrl.searchText)" md-item-text="item.text" placeholder="Search">
+            <span md-highlight-text="ctrl.searchText">{{item.text}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+            <span>{{$chip.text}}</span>
+        </md-chip-template>
+    </md-chips>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+    <script type="text/javascript">
+        angular.module('BlankApp', ['ngMaterial'])
+            .controller('ChipCtrl', ['$scope', function ($scope) {
+                var vm = this,
+                    counter = 0;
+                vm.selectedChips = [];
+                vm.selectedItem = null;
+                vm.searchText = null;
+                vm.logs = [];
+                vm.chipSet = [{
+                    "text": "Marina Augustine",
+                }, {
+                    "text": "Oddr Sarno",
+                }, {
+                    "text": "Nick Giannopoulos",
+                }, {
+                    "text": "Narayana Garner",
+                }, {
+                    "text": "Anita Gros",
+                }, {
+                    "text": "Megan Smith",
+                },{
+                    "text":"Tsvetko Metzger",
+                },{
+                    "text":"Hector Simek",
+                },{
+                    "text":"Some-guy withalongalastaname"
+                }];
+                vm.chipSearch = function (text) {
+                    return vm.chipSet.filter(function (object) {
+                        if (angular.isString(text)) {
+
+                            return object.text.search(text) > -1;
+                        } else {
+                            return false;
+                        }
+                    });
+                };
+
+                vm.transformChip = function (chip) {
+                    return chip;
+                };
+
+                $scope.selectChip = function (chip) {
+                    vm.logs.push(++counter + ' selected ' + chip.text);
+                };
+
+                $scope.addChip = function (chip) {
+                    vm.logs.push(++counter + ' added ' + chip.text);
+                };
+
+                $scope.removeChip = function (chip) {
+                    vm.logs.push(++counter + ' removed ' + chip.text);
+                };
+
+                $scope.remove = function (chip) {
+                    var idx = self.vm.chipSet.indexOf(chip.text)
+                    $scope.filters.splice(idx, 1)
+                }
+            }]);
+    </script>
+
+</body>
+
+</html>
