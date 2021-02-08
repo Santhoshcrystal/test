@@ -23,4 +23,9 @@ const workingSpace = new mongoose.Schema({
 }, { timestamps: true })
 
 
+
+workingSpace.statics.findBySpaceName = async function(spaceName) {
+    return this.findOne({spaceName});
+}
+
 module.exports = mongoose.model('workingSpace', workingSpace);
