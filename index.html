@@ -1,90 +1,229 @@
-<html lang="en">
+<html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+    <style>
+        body {
+            font-family: "Arial";
+            font-size: 12px;
+        }
+
+        main {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 500px;
+            background: #f0f0f0;
+            padding: 15px 15px 10px 15px;
+            border-radius: 15px;
+        }
+
+        .container h1 {
+            font-size: 18px;
+            margin-top: 0px;
+            margin-bottom: 20px;
+        }
+
+        .container ul {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            display: inline-block;
+        }
+
+        .container ul li {
+            display: inline-block;
+            background: #555;
+            color: white;
+            padding: 3px 5px 3px 10px;
+            border-radius: 15px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .container ul li a {
+            color: white;
+            text-decoration: none;
+            margin-left: 5px;
+            font-size: 10px;
+            background: #333;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            display: inline-flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container ul li a:hover {
+            color: red;
+        }
+
+        .container input {
+            border: 0px;
+            background: none;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        input[type="text"]:focus {
+            border: 0px;
+            outline: 0;
+            border-bottom: 1px solid !important;
+        }
+
+        .itemsDropdown {
+            list-style: none;
+        }
+
+
+        .list-group {
+            list-style: none;
+            max-height: 185px;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 10;
+            width: 95%;
+            margin-top: -10px;
+            cursor: pointer;
+        }
+
+        .list-group-item {
+            font-size: 14px;
+            padding: 0;
+        }
+
+        .list-group-item a {
+            color: #4a4a4a !important;
+        }
+
+        .list-group-link {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .list-group-link:hover,
+        .list-group-link:focus {
+            text-decoration: none;
+        }
+
+        .list-group-link.active {
+            color: #fff;
+            background-color: #0275d8;
+            border-color: #0275d8;
+        }
+
+        .list-group-item:first-child .list-group-link {
+            border-top-right-radius: 0.25rem;
+            border-top-left-radius: 0.25rem;
+        }
+
+        .list-group-item:last-child .list-group-link {
+            border-bottom-right-radius: 0.25rem;
+            border-bottom-left-radius: 0.25rem;
+        }
+
+
+        #dropdown {
+            display: none;
+        }
+    </style>
 </head>
 
-<body ng-app="BlankApp" ng-controller="ChipCtrl as ctrl" ng-cloak>
-    <md-chips ng-model="ctrl.selectedChips" md-autocomplete-snap md-transform-chip="ctrl.transformChip($chip)"
-        md-on-select="selectChip($chip)"  md-on-add="addChip($chip)" md-on-remove="removeChip($chip)"
-        md-require-match="true">
-        <md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText"
-            md-items="item in ctrl.chipSearch(ctrl.searchText)" md-item-text="item.text" placeholder="Search">
-            <span md-highlight-text="ctrl.searchText">{{item.text}}</span>
-        </md-autocomplete>
-        <md-chip-template>
-            <span>{{$chip.text}}</span>
-        </md-chip-template>
-    </md-chips>
+<body>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <main>
+        <div class="container">
+            <ul id="list"></ul>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+            <div>
+                <input type="text" id="txt" onfocusout="myFunction2()" onfocus="myFunction(this)"
+                    placeholder="type and Enter ...">
+                <div id="dropdown">
+
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script type="text/javascript">
-        angular.module('BlankApp', ['ngMaterial'])
-            .controller('ChipCtrl', ['$scope', function ($scope) {
-                var vm = this,
-                    counter = 0;
-                vm.selectedChips = [];
-                vm.selectedItem = null;
-                vm.searchText = null;
-                vm.logs = [];
-                vm.chipSet = [{
-                    "text": "Marina Augustine",
-                }, {
-                    "text": "Oddr Sarno",
-                }, {
-                    "text": "Nick Giannopoulos",
-                }, {
-                    "text": "Narayana Garner",
-                }, {
-                    "text": "Anita Gros",
-                }, {
-                    "text": "Megan Smith",
-                },{
-                    "text":"Tsvetko Metzger",
-                },{
-                    "text":"Hector Simek",
-                },{
-                    "text":"Some-guy withalongalastaname"
-                }];
-                vm.chipSearch = function (text) {
-                    return vm.chipSet.filter(function (object) {
-                        if (angular.isString(text)) {
+        var txt = document.getElementById('txt');
+        var list = document.getElementById('list');
+        var dropdownList = document.getElementById('dropdown');
+        var items = [];
+        var itemsList = ['Marina Augustine', 'Oddr Sarno', 'Nick Giannopoulos', 'Narayana Garner','Anita Gros', 'Megan Smith', 'Tsvetko Metzger'];
 
-                            return object.text.search(text) > -1;
-                        } else {
-                            return false;
-                        }
-                    });
-                };
+        txt.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                add(txt.value);
+            }
+        });
 
-                vm.transformChip = function (chip) {
-                    return chip;
-                };
+        function myFunction(x) {
+            dropdownList.style.display = "block"
+        }
 
-                $scope.selectChip = function (chip) {
-                    vm.logs.push(++counter + ' selected ' + chip.text);
-                };
+        function myFunction2() {
+            setTimeout(function () {
+                dropdownList.style.display = "none"
+            }, 3000);
+        }
 
-                $scope.addChip = function (chip) {
-                    vm.logs.push(++counter + ' added ' + chip.text);
-                };
 
-                $scope.removeChip = function (chip) {
-                    vm.logs.push(++counter + ' removed ' + chip.text);
-                };
-
-                $scope.remove = function (chip) {
-                    var idx = self.vm.chipSet.indexOf(chip.text)
-                    $scope.filters.splice(idx, 1)
+        function add(val) {
+            console.log(val, "---");
+            if (val !== '') {
+                if (items.indexOf(val) >= 0) {
+                    alert('Tag name is a duplicate');
+                } else {
+                    items.push(val);
+                    render();
+                    txt.value = '';
+                    txt.focus();
                 }
-            }]);
+            } else {
+                alert('Please type a tag Name');
+            }
+        }
+
+        function addList(index) {
+            let val = itemsList[index]
+            add(val);
+        }
+
+        function render() {
+            list.innerHTML = '';
+            items.map((item, index) => {
+                list.innerHTML += `<li><span>${item}</span><a href="javascript: remove(${index})">X</a></li>`;
+            });
+            dropdownList.innerHTML = '';
+            itemsList.map((item, index) => {
+                console.log(item, "-------");
+                dropdownList.innerHTML +=
+                    `<li class="itemsDropdown list-group-item"><a href="javascript: addList(${index})"><span>${item}</span></a></li>`;
+            });
+        }
+
+        function remove(i) {
+            items = items.filter(item => items.indexOf(item) != i);
+            render();
+        }
+
+        window.onload = function () {
+            render();
+            txt.focus();
+        }
     </script>
 
 </body>
