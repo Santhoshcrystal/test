@@ -3,8 +3,8 @@ const meetingRooms = require('../../models/meetingRoom');
 const coWorkingSpace = require('../../models/coWorkingSpace');
 
 const promiseHandler = require("../../helpers/Response/promiseHandler");
-const { BadRequest } = require("../helpers/Response/ClientErrors");
-const { Success } = require('../helpers/Response/Success');
+const { BadRequest } = require("../../helpers/Response/ClientErrors");
+const { Success } = require('../../helpers/Response/Success');
 
 
 module.exports.updateMemeberDetails = async (req, res) => {
